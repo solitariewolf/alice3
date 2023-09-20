@@ -3,7 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const userMessageInput = document.getElementById("user-message");
     const sendButton = document.getElementById("send-button");
 
+    // Adicione um ouvinte de evento para a tecla "Enter"
+    userMessageInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+
     sendButton.addEventListener("click", function () {
+        sendMessage();
+    });
+
+    function sendMessage() {
         // Obtenha a mensagem do usuário
         const userMessage = userMessageInput.value.trim();
 
@@ -14,16 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Adicione a mensagem do usuário ao histórico
         appendMessage("Você: " + userMessage, "user");
 
-        // Verifique se a mensagem é "ping" e responda com "pong" (apenas um teste para verificar se o chatbot está respondendo)
+        // Verifique se a mensagem é "ping" e responda com "pong"
         if (userMessage.toLowerCase() === "ping") {
             setTimeout(function () {
-                appendMessage("Chatbot: Pong", "chatbot");
+                appendMessage("Alice: Pong", "alice");
             }, 1000); // Simulando uma resposta do chatbot após 1 segundo
         }
 
         // Limpe a caixa de entrada do usuário
         userMessageInput.value = "";
-    });
+    }
 
     function appendMessage(message, sender) {
         const messageElement = document.createElement("div");
@@ -35,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sender === "user") {
             icon.src = "img/you.png";
             icon.alt = "Você";
-        } else if (sender === "chatbot") {
+        } else if (sender === "alice") {
             icon.src = "img/alice.png";
-            icon.alt = "  Chatbot";
+            icon.alt = "Alice";
         }
 
         // Crie um elemento para o texto da mensagem
